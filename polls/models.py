@@ -5,7 +5,8 @@ from datetime import datetime
 
 class Posts(models.Model):
     title = models.CharField(max_length=120)
-    body = models.TextField()
+    image = models.ImageField(upload_to='uploads')
+    content = models.TextField()
     createdAt = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):
@@ -16,3 +17,5 @@ class Posts(models.Model):
 
     class Meta:
         verbose_name_plural = "Posts"
+
+
