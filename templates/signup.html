@@ -10,17 +10,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <div class="container">
         <h2>Signup</h2>
-        <form action="http://127.0.0.1:5000/signup" method="POST">
+        <form action="/polls/signup " method="POST">
+            {% csrf_token %}
             <div class="form-group">
                 <label for="email">First Name:</label>
-                <input type="type" class="form-control" id="email" placeholder="Enter First Name" name="fname">
+                <input type="type" class="form-control" id="email" placeholder="Enter First Name" name="first_name">
             </div>
             <div class="form-group">
                 <label for="email">Last Name:</label>
-                <input type="type" class="form-control" id="email" placeholder="Entet Last Name" name="lname">
+                <input type="type" class="form-control" id="email" placeholder="Entet Last Name" name="last_name">
+            </div>
+            <div class="form-group">
+                <label for="email">User Name:</label>
+                <input type="type" class="form-control" id="email" placeholder="Entet Last Name" name="username">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -28,10 +34,15 @@
             </div>
             <div class="form-group">
                 <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password1">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Confirm Password:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password2">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </body>
+
 </html>
