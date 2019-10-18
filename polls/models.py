@@ -8,7 +8,7 @@ class Posts(models.Model):
     image = models.ImageField(upload_to='uploads')
     content = models.TextField()
     createdAt = models.DateTimeField(default=datetime.now, blank=True)
-
+    
     def __str__(self):
         return self.title
 
