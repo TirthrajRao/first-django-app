@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User,auth
+from django.core.mail import send_mail
 from .models import Posts
+
 
 
 def index(request):
@@ -26,8 +28,9 @@ def signup(request):
             else:
                 user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password1)
                 user.save();
+                res = send_mail("Thanks For Registering With Us", "Enjoy Trivia Post", "noreplay@triviapost.com", [email])
                 print('user created successfully!!!')
-
+                return HttpResponse('User Created Successfully!!!')
         else:
             print('Password not matching!!!')
 
@@ -57,9 +60,7 @@ def deleteUser(request):
         print('user deleted successfully!!!')
     else:
         print('Bad Request!!!')
-
-             
-
+        
 def post(request):
     posts  = Posts.objects.all() 
     return render(request, "post.html",{'posts':posts})    

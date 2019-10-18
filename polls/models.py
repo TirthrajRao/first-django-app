@@ -4,6 +4,7 @@ from datetime import datetime
 # Create your models here.
 
 class Posts(models.Model):
+    
     title = models.CharField(max_length=120)
     image = models.ImageField(upload_to='uploads')
     content = models.TextField()
