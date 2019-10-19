@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
+    <title>Flask Application</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -54,15 +54,29 @@
     </nav>
 
     <div class="container">
-        <br><br>
-        <div class="jumbotron">
-            <h1>Welcome To Trivia Post</h1>
-            <p>Inshorts is a news app that selects latest and best news from multiple national and international sources
-                and summarises them to present in a short and crisp 60.</p>
+        <h2>Feedback</h2>
+        <form action="feedback" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="email">Mobile:</label>
+                <input type="number" class="form-control" id="email" placeholder="Enter Mobile" name="mobile">
+            </div>
+            <div class="form-group">
+                <label for="comment">Message:</label>
+                <textarea class="form-control" rows="5" id="comment"  placeholder="Enter Message" name="message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <div>
+            {% for message in messages %}
+            <h3 class="alert alert-success" role="alert">{{message}}</h3>
+            {% endfor %}
         </div>
     </div>
-    </div>
-
 </body>
 
 </html>

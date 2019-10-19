@@ -4,6 +4,7 @@ from django.contrib.auth.models import User,auth
 from django.core.mail import send_mail
 from django.contrib import messages
 from .models import Posts
+from .models import Feedback
 
 
 
@@ -102,3 +103,21 @@ def logout(request):
     auth.logout(request)
     print('Logout is called!!!')
     return redirect ('index')
+
+def feedback(request):
+
+    if  request.method == 'POST':
+        
+        email = request.POST['email']
+        mobile = request.POST['mobile']
+        message = request.POST['message']
+
+        feedback = Feedback(email=email,mobile=mobile,message=message)
+        feedback.save()
+        print('feedback submitted successfully!!!')
+        messages.info(request,'feedback submitted successfully')
+        return redirect ('feedback')
+
+    else:
+         return render(request, "feedback.html")
+
