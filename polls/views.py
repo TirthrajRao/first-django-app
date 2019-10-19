@@ -24,17 +24,22 @@ def signup(request):
 
             if User.objects.filter(username=username).exists():
                 print('Username taken')
+                messages.info(request,'Username Already Exists')
+                return redirect ('signup')
             elif User.objects.filter(email=email).exists():
                 print ('Email taken')
+                messages.info(request,'Email Already Exists')
+                return redirect ('signup')
             else:
                 user = User.objects.create_user(username=username,first_name=first_name,last_name=last_name,email=email,password=password1)
                 user.save();
                 res = send_mail("Thanks For Registering With Us", "Enjoy Trivia Post", "noreplay@triviapost.com", [email])
                 print('user created successfully!!!')
-                return HttpResponse('User Created Successfully!!!')
+                return redirect ('login')
         else:
             print('Password not matching!!!')
-
+            messages.info(request,'Password Not Matching')
+            return redirect ('signup')
     else:
          return render(request, "signup.html")
 
@@ -85,5 +90,15 @@ def login(request):
         return render(request,"login.html")
         
 def post(request):
-    posts  = Posts.objects.all() 
-    return render(request, "post.html",{'posts':posts})    
+
+    if request.user.is_authenticated:
+        posts  = Posts.objects.all() 
+        return render(request, "post.html",{'posts':posts})
+    else:
+        return redirect ('login')
+
+def logout(request):
+
+    auth.logout(request)
+    print('Logout is called!!!')
+    return redirect ('index')
