@@ -101,7 +101,6 @@ def post(request):
 def logout(request):
 
     auth.logout(request)
-    print('Logout is called!!!')
     return redirect ('index')
 
 def feedback(request):
@@ -117,7 +116,6 @@ def feedback(request):
         print('feedback submitted successfully!!!')
         messages.info(request,'feedback submitted successfully')
         return redirect ('feedback')
-
     else:
          return render(request, "feedback.html")
 
