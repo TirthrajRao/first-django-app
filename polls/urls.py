@@ -9,4 +9,5 @@ urlpatterns = [
     path('post', views.post, name='post'),
     path('logout', views.logout, name='logout'),
     path('feedback', views.feedback, name='feedback'),
+    path('feedbackList', views.feedbackList, name='feedbackList'),
 ]

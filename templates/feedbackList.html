@@ -53,52 +53,30 @@
         </ul>
     </nav>
 
+
+
     <div class="container">
-        <h2>Feedback</h2>
-        <form id='new_feedback_form'>
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email">
-            </div>
-            <div class="form-group">
-                <label for="email">Mobile:</label>
-                <input type="number" class="form-control" id="mobile" placeholder="Enter Mobile" name="mobile">
-            </div>
-            <div class="form-group">
-                <label for="comment">Message:</label>
-                <textarea class="form-control" rows="5" id="message" placeholder="Enter Message"
-                    name="message"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <div id='msg'>
-            {% for message in messages %}
-            <h3 class="alert alert-success" role="alert">{{message}}</h3>
-            {% endfor %}
-        </div>
+        <h2 class="text-center">Trivia Post Feedback</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feed in feedback %}
+                <tr>
+                    <td>{{feed.email}}</td>
+                    <td>{{feed.mobile}}</td>
+                    <td>{{feed.message}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
 </body>
-
-<script type="text/javascript">
-    $(document).on('submit', '#new_feedback_form', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '/polls/feedback',
-            data: {
-                email: $('#email').val(),
-                mobile: $('#mobile').val(),
-                message: $('#message').val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function (data) {
-                document.getElementById("new_feedback_form").reset();
-                alert('Feedback submitted Successfully')
-            }
-        })
-    })
-</script>
-
 
 </html>

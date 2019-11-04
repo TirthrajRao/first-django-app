@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from .models import Posts
 from .models import Feedback
+# from .forms import signUpForm
 
 
 
@@ -12,8 +13,9 @@ def index(request):
     return render(request, "index.html")
 
 def signup(request):
-
+        
     if  request.method == 'POST':
+        
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         username = request.POST['username']
@@ -22,7 +24,6 @@ def signup(request):
         password2 = request.POST['password2']
 
         if password1 == password2:
-
             if User.objects.filter(username=username).exists():
                 print('Username taken')
                 messages.info(request,'Username Already Exists')
@@ -115,7 +116,16 @@ def feedback(request):
         feedback.save()
         print('feedback submitted successfully!!!')
         messages.info(request,'feedback submitted successfully')
-        return redirect ('feedback')
+        return redirect ('feedback')    
     else:
          return render(request, "feedback.html")
+
+def feedbackList(request):
+
+    if request.user.is_authenticated:
+        feedback  = Feedback.objects.all() 
+        return render(request, "feedbackList.html",{'feedback':feedback})
+    else:
+        return redirect ('login')
+
 
